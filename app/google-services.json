@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "771065746636",
+    "project_id": "ada-spectacle",
+    "storage_bucket": "ada-spectacle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771065746636:android:2c85c1143f7cbfd3b71e69",
+        "android_client_info": {
+          "package_name": "tech.ada.leosan.spectacle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771065746636-1khakcj0gd959ej4br0rg1sv1d76g5co.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tech.ada.leosan.spectacle",
+            "certificate_hash": "b351848463c9f8eb169a069e2133e1af4d9b3e58"
+          }
+        },
+        {
+          "client_id": "771065746636-7n8e6p455omd29oknb4d2h0nqrprk91t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFW4bqhOKkk_vFvioHgVG1nyMAFCkfWA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771065746636-7n8e6p455omd29oknb4d2h0nqrprk91t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
