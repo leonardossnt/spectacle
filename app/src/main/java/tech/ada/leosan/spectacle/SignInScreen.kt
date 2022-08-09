@@ -1,5 +1,6 @@
 package tech.ada.leosan.spectacle
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -22,24 +24,35 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Preview
 @Composable
-fun LoginScreenPreview() {
-    LoginScreen(navController = rememberNavController())
+fun SignInPreview() {
+    SignInScreen(
+        navigateToHome = {},
+        navigateToSignUp = {}
+    )
 }
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun SignInScreen(
+    navigateToHome: () -> Unit,
+    navigateToSignUp: () -> Unit
+) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
         LoginTitle()
-        LoginForm()
+
+        LoginForm { navigateToHome() }
+
+        Spacer(Modifier.height(16.dp))
+
+        NextAuthScreenButton(stringResource(R.string.signup)) { navigateToSignUp() }
     }
 }
 
@@ -61,7 +74,21 @@ fun LoginTitle() {
 }
 
 @Composable
-fun LoginForm() {
+fun NextAuthScreenButton(text: String, action: () -> Unit) {
+    ClickableText(
+        text = AnnotatedString(text),
+        onClick = { action() },
+        style = TextStyle(
+            textDecoration = TextDecoration.Underline,
+            color = MaterialTheme.colors.primaryVariant
+        )
+    )
+}
+
+@Composable
+fun LoginForm(navigateToHome: () -> Unit) {
+    val context = LocalContext.current
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -82,20 +109,39 @@ fun LoginForm() {
 
     Spacer(Modifier.height(32.dp))
 
-    Button(onClick = { /*TODO*/ }) {
+    SignInButton(username, password,
+        onSignedIn = {
+            Toast.makeText(context,
+                context.getString(R.string.authenticated),
+                Toast.LENGTH_SHORT
+            ).show()
+            navigateToHome()
+        },
+        onSignInFailed = {
+            Toast.makeText(
+                context,
+                context.getString(R.string.invalid_login_or_password),
+                Toast.LENGTH_SHORT
+            ).show()
+        })
+}
+
+@Composable
+private fun SignInButton(
+    username: String,
+    password: String,
+    onSignedIn: () -> Unit,
+    onSignInFailed: () -> Unit
+) {
+    Button(onClick = {
+        if (username.isNotEmpty() && password.isNotEmpty()) {
+            signIn(username, password, onSignedIn, onSignInFailed)
+        } else {
+            // TODO: User / Password invalid
+        }
+    }) {
         Text(stringResource(R.string.signin).uppercase())
     }
-
-    Spacer(Modifier.height(16.dp))
-
-    ClickableText(
-        text = AnnotatedString(stringResource(R.string.signup)),
-        onClick = { /*TODO*/ },
-        style = TextStyle(
-            textDecoration = TextDecoration.Underline,
-            color = MaterialTheme.colors.primaryVariant
-        )
-    )
 }
 
 @Composable
@@ -143,4 +189,28 @@ fun CustomTextFieldForLogin(
             }
         }
     )
+}
+
+private fun signIn(
+    email: String,
+    password: String,
+    onSignedIn: () -> Unit,
+    onSignInFailed: () -> Unit
+) {
+    val auth = Firebase.auth
+
+    auth.signInWithEmailAndPassword(email, password)
+        .addOnSuccessListener { authResult ->
+            println("User authenticated: ${authResult.user} ${authResult.additionalUserInfo} ${authResult.credential}")
+            onSignedIn()
+        }.addOnFailureListener { exception ->
+            println("Auth failed: ${exception.message}")
+            onSignInFailed()
+            // case 1: bad formatted email -- The email address is badly formatted.
+            // zza ERROR_INVALID_EMAIL
+            // case 2: invalid user -- There is no user record corresponding to this identifier. The user may have been deleted.
+            // zza ERROR_USER_NOT_FOUND
+            // case 3: invalid password -- The password is invalid or the user does not have a password.
+            // zza ERROR_WRONG_PASSWORD
+        }
 }

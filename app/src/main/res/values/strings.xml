@@ -6,4 +6,7 @@
     <string name="username">Usuário</string>
     <string name="signin">Fazer login</string>
     <string name="signup">Registrar-se</string>
+    <string name="authenticated">Autenticado!</string>
+    <string name="invalid_login_or_password">Login ou senha inválidos</string>
+    <string name="already_has_login">Já tenho um login</string>
 </resources>
