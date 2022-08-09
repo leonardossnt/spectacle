@@ -22,13 +22,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : ComponentActivity() {
     val TAG: String = "LoginActivity"
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
 
         setContent {
             LoginScreen()
@@ -50,24 +55,7 @@ class LoginActivity : ComponentActivity() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxHeight()
                 ) {
-                    TextFieldsForLogin()
-
-                    Spacer(Modifier.height(32.dp))
-
-                    Button(onClick = { /*TODO*/ }) {
-                        Text(getString(R.string.signin).uppercase())
-                    }
-
-                    Spacer(Modifier.height(16.dp))
-
-                    ClickableText(
-                        text = AnnotatedString(getString(R.string.signup)),
-                        onClick = { /*TODO*/ },
-                        style = TextStyle(
-                            textDecoration = TextDecoration.Underline,
-                            color = MaterialTheme.colors.primaryVariant
-                        )
-                    )
+                    LoginForm()
                 }
             }
         }
@@ -91,53 +79,89 @@ class LoginActivity : ComponentActivity() {
     }
 
     @Composable
-    fun TextFieldsForLogin() {
+    fun LoginForm() {
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var isPasswordVisible by remember { mutableStateOf(false) }
 
-        TextField(
+        CustomTextFieldForLogin(
             value = username,
-            label = { Text(text = getString(R.string.username)) },
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White,
-                cursorColor = Color.Black,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-            ),
-            onValueChange = { username = it },
-            shape = RoundedCornerShape(50.dp),
-            singleLine = true,
+            label = getString(R.string.username),
+            onValueChange = { username = it }
         )
 
         Spacer(Modifier.height(16.dp))
 
-        TextField(
+        CustomTextFieldForLogin(
             value = password,
-            label = { Text(text = getString(R.string.password)) },
+            label = getString(R.string.password),
+            onValueChange = { password = it },
+            isPasswordField = true
+        )
+
+        Spacer(Modifier.height(32.dp))
+
+        Button(onClick = { /*TODO*/ }) {
+            Text(getString(R.string.signin).uppercase())
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        ClickableText(
+            text = AnnotatedString(getString(R.string.signup)),
+            onClick = { /*TODO*/ },
+            style = TextStyle(
+                textDecoration = TextDecoration.Underline,
+                color = MaterialTheme.colors.primaryVariant
+            )
+        )
+    }
+
+    @Composable
+    fun CustomTextFieldForLogin(
+        value: String,
+        label: String,
+        onValueChange: (String) -> Unit,
+        isPasswordField: Boolean = false
+    ) {
+        var isPasswordVisible by remember { mutableStateOf(false) }
+
+        TextField(
+            value = value,
+            label = { Text(label) } ,
+            onValueChange = onValueChange,
+
+            // layout
             colors = TextFieldDefaults.textFieldColors(
                 backgroundColor = Color.White,
                 cursorColor = Color.Black,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
             ),
-            onValueChange = { password = it },
-            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(50.dp),
             singleLine = true,
+
+            // password
+            visualTransformation =
+                if (!isPasswordField) VisualTransformation.None
+                else if (isPasswordVisible) VisualTransformation.None
+                    else PasswordVisualTransformation(),
             trailingIcon = {
-                val image = if (isPasswordVisible) Icons.Filled.Visibility
-                else Icons.Filled.VisibilityOff
+                if (isPasswordField) {
+                    val image = if (isPasswordVisible) Icons.Filled.Visibility
+                    else Icons.Filled.VisibilityOff
 
-                val description = if (isPasswordVisible) getString(R.string.hide_password)
-                else getString(R.string.show_password)
+                    val description = if (isPasswordVisible) getString(R.string.hide_password)
+                    else getString(R.string.show_password)
 
-                IconButton(
-                    onClick = { isPasswordVisible = !isPasswordVisible }
-                ) {
-                    Icon(imageVector = image, description)
+                    IconButton(
+                        onClick = { isPasswordVisible = !isPasswordVisible }
+                    ) {
+                        Icon(imageVector = image, description)
+                    }
                 }
             }
         )
     }
+
 }
