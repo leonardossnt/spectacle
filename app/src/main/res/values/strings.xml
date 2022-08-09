@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Spectacle</string>
+    <string name="show_password">Mostrar senha</string>
+    <string name="hide_password">Esconder senha</string>
+    <string name="password">Senha</string>
+    <string name="username">Usuário</string>
+    <string name="signin">Fazer login</string>
+    <string name="signup">Registrar-se</string>
 </resources>
