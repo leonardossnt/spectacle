@@ -3,27 +3,12 @@ package tech.ada.leosan.spectacle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-
+import androidx.compose.ui.graphics.Brush
 
 class MainActivity : ComponentActivity() {
     val TAG: String = "MainActivity"
@@ -32,131 +17,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            LoginScreen()
-        }
-    }
-
-    @Composable
-    fun LoginScreen() {
-        MaterialTheme(
-            colors = CustomColors.Colors
-        ) {
-            Surface(
-                modifier = Modifier.fillMaxSize()
+            MaterialTheme(
+                colors = CustomColors.Colors
             ) {
-                Background()
-                LoginTitle()
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxHeight()
+                Box(
+                    Modifier.fillMaxSize()
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    MaterialTheme.colors.secondary,
+                                    MaterialTheme.colors.primary,
+                                )
+                            )
+                        )
                 ) {
-                    LoginForm()
+                    MainScreen()
                 }
             }
         }
-    }
-
-    @Composable
-    fun LoginTitle() {
-        Box(
-            modifier = Modifier.padding(vertical = 128.dp),
-            contentAlignment = Alignment.TopCenter
-        ) {
-            Text(
-                getString(R.string.app_name).uppercase(),
-                style = TextStyle(
-                    color = Color.White,
-                    fontSize = 36.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Monospace
-                )
-            )
-        }
-    }
-
-    @Composable
-    fun LoginForm() {
-        var username by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
-
-        CustomTextFieldForLogin(
-            value = username,
-            label = getString(R.string.username),
-            onValueChange = { username = it }
-        )
-
-        Spacer(Modifier.height(16.dp))
-
-        CustomTextFieldForLogin(
-            value = password,
-            label = getString(R.string.password),
-            onValueChange = { password = it },
-            isPasswordField = true
-        )
-
-        Spacer(Modifier.height(32.dp))
-
-        Button(onClick = { /*TODO*/}) {
-            Text(getString(R.string.signin).uppercase())
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        ClickableText(
-            text = AnnotatedString(getString(R.string.signup)),
-            onClick = { /*TODO*/ },
-            style = TextStyle(
-                textDecoration = TextDecoration.Underline,
-                color = MaterialTheme.colors.primaryVariant
-            )
-        )
-    }
-
-    @Composable
-    fun CustomTextFieldForLogin(
-        value: String,
-        label: String,
-        onValueChange: (String) -> Unit,
-        isPasswordField: Boolean = false
-    ) {
-        var isPasswordVisible by remember { mutableStateOf(false) }
-
-        TextField(
-            value = value,
-            label = { Text(label) } ,
-            onValueChange = onValueChange,
-
-            // layout
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = Color.White,
-                cursorColor = Color.Black,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-            ),
-            shape = RoundedCornerShape(50.dp),
-            singleLine = true,
-
-            // password
-            visualTransformation =
-                if (!isPasswordField) VisualTransformation.None
-                else if (isPasswordVisible) VisualTransformation.None
-                    else PasswordVisualTransformation(),
-            trailingIcon = {
-                if (isPasswordField) {
-                    val image = if (isPasswordVisible) Icons.Filled.Visibility
-                    else Icons.Filled.VisibilityOff
-
-                    val description = if (isPasswordVisible) getString(R.string.hide_password)
-                    else getString(R.string.show_password)
-
-                    IconButton(
-                        onClick = { isPasswordVisible = !isPasswordVisible }
-                    ) {
-                        Icon(imageVector = image, description)
-                    }
-                }
-            }
-        )
     }
 }
