@@ -1,7 +1,8 @@
 package tech.ada.leosan.spectacle
 
 sealed class Routes(val route: String) {
-    object Login : Routes("Login")
+    object SignIn : Routes("SignIn")
     object SignUp : Routes("SignUp")
     object Main : Routes("Main")
+    object Home : Routes("Home")
 }
