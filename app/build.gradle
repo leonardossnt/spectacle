@@ -14,7 +14,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
-
+    buildFeatures {
+        compose true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.2.0'
+    }
 }
 
 dependencies {
@@ -39,4 +45,14 @@ dependencies {
 
     // Firebase Dependencies
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.7'
+
+    // Jetpack Compose Dependencies
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.compose.foundation:foundation:1.2.0'
+    implementation 'androidx.compose.material:material:1.2.0'
+    implementation 'androidx.compose.material:material-icons-extended:1.2.0'
+    implementation 'androidx.compose.material:material-icons-core:1.2.0'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.2.0'
+    implementation 'androidx.compose.ui:ui-tooling:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
 }
