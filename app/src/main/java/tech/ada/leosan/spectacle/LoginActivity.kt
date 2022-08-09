@@ -22,18 +22,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 
 class LoginActivity : ComponentActivity() {
     val TAG: String = "LoginActivity"
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
 
         setContent {
             LoginScreen()
@@ -82,7 +77,6 @@ class LoginActivity : ComponentActivity() {
     fun LoginForm() {
         var username by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-        var isPasswordVisible by remember { mutableStateOf(false) }
 
         CustomTextFieldForLogin(
             value = username,
@@ -163,5 +157,4 @@ class LoginActivity : ComponentActivity() {
             }
         )
     }
-
 }
