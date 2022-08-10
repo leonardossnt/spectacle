@@ -20,8 +20,6 @@ fun MainScreen(
         }
         MainScreenState.SignUp -> TODO()
         MainScreenState.Loading -> LoadingScreen()
-        MainScreenState.LoggedIn -> LaunchedEffect(Unit) {
-            navigateToHome()
-        }
+        MainScreenState.LoggedIn -> navigateToHome()
     }
 }
