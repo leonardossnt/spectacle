@@ -17,4 +17,6 @@
     <string name="movies_description">Veja seus filmes disponíveis</string>
     <string name="search_placeholder">Buscar…</string>
     <string name="back">Voltar</string>
+    <string name="my_playlist">Minha Playlist</string>
+    <string name="add_new_song">Adicionar nova música</string>
 </resources>
