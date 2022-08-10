@@ -1,16 +1,17 @@
 package tech.ada.leosan.spectacle
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.LibraryMusic
 import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material.icons.rounded.Movie
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -36,17 +37,19 @@ fun HomeScreen(
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 36.dp)
     ) {
-        Text(
-            text = stringResource(R.string.what_do_you_want),
-            style = TextStyle(
-                color = MaterialTheme.colors.onPrimary,
-                fontSize = 32.sp,
-                fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Center
-            ),
-        )
+        HomeScreenTitle()
+
+        Spacer(Modifier.height(32.dp))
+
+        MusicButton()
+
+        Spacer(Modifier.height(24.dp))
+
+        MoviesButton()
     }
 }
 
@@ -85,3 +88,78 @@ fun HomeScreenTopBar(
     }
 }
 
+@Composable
+fun HomeScreenTitle() {
+    Text(
+        text = stringResource(R.string.what_do_you_want),
+        style = TextStyle(
+            color = MaterialTheme.colors.onPrimary,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.ExtraBold,
+            textAlign = TextAlign.Center
+        ),
+    )
+}
+
+@Composable
+fun MusicButton() {
+    CustomButton(
+        label = "Música",
+        description = "Veja suas músicas disponíveis",
+        icon = Icons.Rounded.LibraryMusic
+    )
+}
+
+@Composable
+fun MoviesButton() {
+    CustomButton(
+        label = "Filmes",
+        description = "Veja seus filmes disponíveis",
+        icon = Icons.Rounded.Movie
+    )
+}
+
+@Composable
+fun CustomButton(
+    label: String,
+    description: String,
+    icon: ImageVector,
+) {
+    Button(
+        onClick = {},
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(50.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Icon(
+                icon,
+                contentDescription = label,
+                tint = MaterialTheme.colors.primary,
+                modifier = Modifier
+                    .size(56.dp)
+            )
+            Spacer(Modifier.width(24.dp))
+            Column(
+                Modifier.weight(1f)
+            ) {
+                Text(
+                    label,
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Normal
+                    )
+                )
+                Text(
+                    description,
+                    style = TextStyle(
+                        fontWeight = FontWeight.Light
+                    )
+                )
+            }
+        }
+    }
+}
