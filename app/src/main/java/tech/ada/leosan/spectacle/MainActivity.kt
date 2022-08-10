@@ -46,13 +46,24 @@ class MainActivity : ComponentActivity() {
                                             inclusive = true
                                         }
                                     }
+                                },
+                                navigateToHome = {
+                                    navController.navigate(Routes.Home.route) {
+                                        popUpTo(Routes.SignIn.route) {
+                                            inclusive = true
+                                        }
+                                    }
                                 }
                             )
                         }
                         composable(Routes.SignIn.route) {
                             SignInScreen(
                                 navigateToHome = {
-                                    navController.navigate(Routes.Home.route)
+                                    navController.navigate(Routes.Home.route) {
+                                        popUpTo(Routes.SignIn.route) {
+                                            inclusive = true
+                                        }
+                                    }
                                 },
                                 navigateToSignUp = {
                                     navController.navigate(Routes.SignUp.route) {
@@ -66,10 +77,14 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.SignUp.route) {
                             SignUpScreen(
                                 navigateToHome = {
-                                    navController.navigate(Routes.Home.route)
+                                    navController.navigate(Routes.Home.route) {
+                                        popUpTo(Routes.SignUp.route) {
+                                            inclusive = true
+                                        }
+                                    }
                                 },
                                 navigateToSignIn = {
-                                    navController.navigate(Routes.SignIn.route){
+                                    navController.navigate(Routes.SignIn.route) {
                                         popUpTo(Routes.SignUp.route) {
                                             inclusive = true
                                         }
@@ -78,7 +93,15 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.Home.route) {
-                            HomeScreen()
+                            HomeScreen(
+                                navigateToMain = {
+                                    navController.navigate(Routes.SignIn.route) {
+                                        popUpTo(Routes.Home.route) {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
+                            )
                         }
                     }
                 }

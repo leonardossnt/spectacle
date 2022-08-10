@@ -8,7 +8,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun MainScreen(
-    navigateToSignIn: () -> Unit
+    navigateToSignIn: () -> Unit,
+    navigateToHome: () -> Unit
 ) {
     val viewModel = viewModel<MainScreenViewModel>()
     val state by viewModel.state.collectAsState()
@@ -19,6 +20,8 @@ fun MainScreen(
         }
         MainScreenState.SignUp -> TODO()
         MainScreenState.Loading -> LoadingScreen()
-        MainScreenState.LoggedIn -> HomeScreen()
+        MainScreenState.LoggedIn -> LaunchedEffect(Unit) {
+            navigateToHome()
+        }
     }
 }

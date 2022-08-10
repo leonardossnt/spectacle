@@ -2,6 +2,8 @@ package tech.ada.leosan.spectacle
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,8 +22,11 @@ class MainScreenViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            // TODO check for user credentials
-            mutableState.emit(MainScreenState.SignInRequired)
+            if (Firebase.auth.currentUser != null ){
+                mutableState.emit(MainScreenState.LoggedIn)
+            } else {
+                mutableState.emit(MainScreenState.SignInRequired)
+            }
         }
     }
 }
