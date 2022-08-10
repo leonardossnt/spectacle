@@ -100,8 +100,14 @@ class MainActivity : ComponentActivity() {
                                             inclusive = true
                                         }
                                     }
+                                },
+                                navigateToMusicLibrary = {
+                                    navController.navigate(Routes.MusicLibrary.route)
                                 }
                             )
+                        }
+                        composable(Routes.MusicLibrary.route) {
+                            MusicLibraryScreen()
                         }
                     }
                 }

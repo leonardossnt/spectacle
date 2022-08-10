@@ -26,12 +26,16 @@ import com.google.firebase.ktx.Firebase
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen {}
+    HomeScreen(
+        navigateToMain = {},
+        navigateToMusicLibrary = {}
+    )
 }
 
 @Composable
 fun HomeScreen(
-    navigateToMain: () -> Unit
+    navigateToMain: () -> Unit,
+    navigateToMusicLibrary: () -> Unit
 ) {
     HomeScreenTopBar(navigateToMain)
     Column(
@@ -45,7 +49,7 @@ fun HomeScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        MusicButton()
+        MusicButton { navigateToMusicLibrary() }
 
         Spacer(Modifier.height(24.dp))
 
@@ -102,11 +106,14 @@ fun HomeScreenTitle() {
 }
 
 @Composable
-fun MusicButton() {
+fun MusicButton(
+    navigateToMusicLibrary: () -> Unit
+) {
     CustomButton(
         label = stringResource(R.string.music),
         description = stringResource(R.string.music_description),
-        icon = Icons.Rounded.LibraryMusic
+        icon = Icons.Rounded.LibraryMusic,
+        onClick = navigateToMusicLibrary
     )
 }
 
@@ -125,10 +132,11 @@ fun CustomButton(
     label: String,
     description: String,
     icon: ImageVector,
+    onClick: () -> Unit = {},
     enabled: Boolean = true
 ) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(50.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background),
