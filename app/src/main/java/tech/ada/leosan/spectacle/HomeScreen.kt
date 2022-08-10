@@ -115,7 +115,8 @@ fun MoviesButton() {
     CustomButton(
         label = "Filmes",
         description = "Veja seus filmes disponíveis",
-        icon = Icons.Rounded.Movie
+        icon = Icons.Rounded.Movie,
+        enabled = false
     )
 }
 
@@ -124,12 +125,14 @@ fun CustomButton(
     label: String,
     description: String,
     icon: ImageVector,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = {},
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(50.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background)
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background),
+        enabled = enabled
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
