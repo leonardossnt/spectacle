@@ -44,7 +44,9 @@ fun SignInScreen(
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 60.dp)
     ) {
         LoginTitle()
 
@@ -111,7 +113,8 @@ fun LoginForm(navigateToHome: () -> Unit) {
 
     SignInButton(username, password,
         onSignedIn = {
-            Toast.makeText(context,
+            Toast.makeText(
+                context,
                 context.getString(R.string.authenticated),
                 Toast.LENGTH_SHORT
             ).show()
@@ -167,6 +170,7 @@ fun CustomTextFieldForLogin(
         ),
         shape = RoundedCornerShape(50.dp),
         singleLine = true,
+        modifier = Modifier.fillMaxWidth(),
 
         // password
         visualTransformation =
