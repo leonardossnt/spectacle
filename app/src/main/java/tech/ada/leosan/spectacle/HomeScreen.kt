@@ -104,8 +104,8 @@ fun HomeScreenTitle() {
 @Composable
 fun MusicButton() {
     CustomButton(
-        label = "Música",
-        description = "Veja suas músicas disponíveis",
+        label = stringResource(R.string.music),
+        description = stringResource(R.string.music_description),
         icon = Icons.Rounded.LibraryMusic
     )
 }
@@ -113,8 +113,8 @@ fun MusicButton() {
 @Composable
 fun MoviesButton() {
     CustomButton(
-        label = "Filmes",
-        description = "Veja seus filmes disponíveis",
+        label = stringResource(R.string.movies),
+        description = stringResource(R.string.movies_description),
         icon = Icons.Rounded.Movie,
         enabled = false
     )

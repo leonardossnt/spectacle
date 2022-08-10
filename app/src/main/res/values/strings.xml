@@ -11,4 +11,8 @@
     <string name="already_has_login">Já tenho um login</string>
     <string name="logout">Fazer Logout</string>
     <string name="what_do_you_want">O que deseja fazer?</string>
+    <string name="music">Música</string>
+    <string name="music_description">Veja suas músicas disponíveis</string>
+    <string name="movies">Filmes</string>
+    <string name="movies_description">Veja seus filmes disponíveis</string>
 </resources>
