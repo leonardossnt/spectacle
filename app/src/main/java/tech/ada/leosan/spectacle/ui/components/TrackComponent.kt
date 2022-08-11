@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -34,7 +34,8 @@ fun TrackComponent(
     Box(
         Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)) {
+            .padding(vertical = 8.dp)
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
                 model = track.thumbnailUrl,

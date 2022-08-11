@@ -14,11 +14,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import tech.ada.leosan.spectacle.*
 import tech.ada.leosan.spectacle.navigation.Routes
+import tech.ada.leosan.spectacle.ui.screens.*
 import tech.ada.leosan.spectacle.utils.CustomColors
 
 class MainActivity : ComponentActivity() {
-    val TAG: String = "MainActivity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -112,8 +111,8 @@ class MainActivity : ComponentActivity() {
                         composable(Routes.MusicLibrary.route) {
                             MusicLibraryScreen(navController,
                                 navigateToAddMusic = {
-                                navController.navigate(Routes.AddMusic.route)
-                            })
+                                    navController.navigate(Routes.AddMusic.route)
+                                })
                         }
                         composable(Routes.AddMusic.route) {
                             AddMusicScreen(navController)

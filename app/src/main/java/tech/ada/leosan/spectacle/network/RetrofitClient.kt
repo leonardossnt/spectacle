@@ -10,7 +10,7 @@ class RetrofitClient {
         const val baseUrl = "https://api.deezer.com/"
     }
 
-    private var musicApiService : MusicApiService
+    private var musicApiService: MusicApiService
 
     init {
         val gson = GsonBuilder().create()
@@ -24,7 +24,7 @@ class RetrofitClient {
     }
 
     @Synchronized
-    fun getInstance() : RetrofitClient {
+    fun getInstance(): RetrofitClient {
         if (instance == null) {
             instance = RetrofitClient()
         }

@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import tech.ada.leosan.spectacle.model.dto.DeezerDTO
+import tech.ada.leosan.spectacle.model.dto.mapDtoToTrack
 import tech.ada.leosan.spectacle.network.RetrofitClient
 import tech.ada.leosan.spectacle.ui.states.SearchMusicDataState
 

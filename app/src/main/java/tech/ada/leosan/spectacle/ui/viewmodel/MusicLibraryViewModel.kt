@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth

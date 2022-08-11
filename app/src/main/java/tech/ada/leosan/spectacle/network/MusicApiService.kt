@@ -3,7 +3,7 @@ package tech.ada.leosan.spectacle.network
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import tech.ada.leosan.spectacle.DeezerDTO
+import tech.ada.leosan.spectacle.model.dto.DeezerDTO
 
 interface MusicApiService {
 

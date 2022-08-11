@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.model.dto
 
 import com.google.gson.annotations.SerializedName
 import tech.ada.leosan.spectacle.model.Track
@@ -10,26 +10,26 @@ data class DeezerDTO(
 
 data class TrackDTO(
     @SerializedName("title")
-    val trackTitle : String,
+    val trackTitle: String,
     @SerializedName("artist")
-    val artist : ArtistDTO,
+    val artist: ArtistDTO,
     @SerializedName("album")
-    val album : AlbumDTO
+    val album: AlbumDTO
 )
 
 data class ArtistDTO(
     @SerializedName("name")
-    val name : String
+    val name: String
 )
 
 data class AlbumDTO(
     @SerializedName("title")
-    val title : String,
+    val title: String,
     @SerializedName("cover_medium")
-    val thumbnailUrl : String
+    val thumbnailUrl: String
 )
 
-fun mapDtoToTrack(dto: TrackDTO) : Track {
+fun mapDtoToTrack(dto: TrackDTO): Track {
     return Track(
         title = dto.trackTitle,
         artist = dto.artist.name,

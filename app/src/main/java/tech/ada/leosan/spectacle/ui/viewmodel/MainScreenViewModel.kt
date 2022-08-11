@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +16,7 @@ class MainScreenViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            if (Firebase.auth.currentUser != null ){
+            if (Firebase.auth.currentUser != null) {
                 mutableState.emit(MainScreenState.LoggedIn)
             } else {
                 mutableState.emit(MainScreenState.SignInRequired)
