@@ -39,8 +39,6 @@ class MusicLibraryViewModel : ViewModel() {
                     } else {
                         val list = mutableListOf<Song>()
                         for (data in snapshot.children) {
-                            println(data)
-                            println(data.value)
                             val song = data.getValue(Song::class.java)
                             if (song != null) {
                                 list.add(song)

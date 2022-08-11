@@ -105,6 +105,7 @@ fun MusicLibrarySearchBar(
     onValueChange: (String) -> Unit,
 ) {
     var searchContent by remember { mutableStateOf("") }
+
     Box(
         modifier = Modifier
             .padding(horizontal = 48.dp)
