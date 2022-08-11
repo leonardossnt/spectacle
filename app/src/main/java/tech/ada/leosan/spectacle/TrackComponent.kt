@@ -3,9 +3,12 @@ package tech.ada.leosan.spectacle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.rounded.AddCircleOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +29,9 @@ fun TrackComponentPreview() {
 
 @Composable
 fun TrackComponent(
-    track: Track
+    track: Track,
+    addElement: Boolean = false,
+    addElementAction: () -> Unit = {}
 ) {
     Box(
         Modifier
@@ -43,7 +48,9 @@ fun TrackComponent(
                     .size(72.dp)
             )
             Spacer(Modifier.width(16.dp))
-            Column() {
+            Column(
+                Modifier.weight(1f)
+            ) {
                 Text(
                     track.title,
                     style = TextStyle(
@@ -58,6 +65,12 @@ fun TrackComponent(
                         fontWeight = FontWeight.Light,
                     ),
                 )
+            }
+            if (addElement) {
+                Spacer(Modifier.width(16.dp))
+                IconButton(onClick = addElementAction) {
+                    Icon(imageVector = Icons.Rounded.AddCircleOutline, contentDescription = null)
+                }
             }
         }
     }

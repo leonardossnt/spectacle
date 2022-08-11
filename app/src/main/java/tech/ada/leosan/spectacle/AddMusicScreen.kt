@@ -1,6 +1,8 @@
 package tech.ada.leosan.spectacle
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -53,7 +55,7 @@ fun AddMusicScreen(navController: NavHostController) {
                 SearchMusicDataState.Loading -> {
                     CircularProgressIndicator(color = Color.White)
                 }
-                is SearchMusicDataState.Success -> TrackList((state as SearchMusicDataState.Success).data)
+                is SearchMusicDataState.Success -> TrackListAdd((state as SearchMusicDataState.Success).data)
                 is SearchMusicDataState.Failure -> {
                     Text("Error! ${(state as SearchMusicDataState.Failure).message}")
                 }
@@ -102,5 +104,18 @@ fun AddMusicSearchBar(
                 cursorColor = MaterialTheme.colors.onPrimary
             ),
         )
+    }
+}
+
+@Composable
+fun TrackListAdd(
+    tracks: MutableList<Track>
+) {
+    LazyColumn(
+        modifier = Modifier.padding(horizontal = 24.dp)
+    ) {
+        items(items = tracks) { track ->
+            TrackComponent(track, true)
+        }
     }
 }
