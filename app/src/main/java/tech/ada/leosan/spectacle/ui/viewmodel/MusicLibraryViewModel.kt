@@ -9,13 +9,8 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-sealed class MusicLibraryDataState {
-    class Success(val data: MutableList<Track>) : MusicLibraryDataState()
-    class Failure(val message: String) : MusicLibraryDataState()
-    object Loading : MusicLibraryDataState()
-    object Empty : MusicLibraryDataState()
-}
+import tech.ada.leosan.spectacle.model.Track
+import tech.ada.leosan.spectacle.ui.states.MusicLibraryDataState
 
 class MusicLibraryViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<MusicLibraryDataState>(MusicLibraryDataState.Empty)

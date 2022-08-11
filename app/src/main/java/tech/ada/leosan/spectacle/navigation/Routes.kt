@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.navigation
 
 sealed class Routes(val route: String) {
     object SignIn : Routes("SignIn")

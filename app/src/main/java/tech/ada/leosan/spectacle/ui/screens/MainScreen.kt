@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
+import tech.ada.leosan.spectacle.ui.states.MainScreenState
 
 @Composable
 fun MainScreen(

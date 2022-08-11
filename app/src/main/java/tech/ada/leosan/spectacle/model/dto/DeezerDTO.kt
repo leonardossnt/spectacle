@@ -1,6 +1,7 @@
 package tech.ada.leosan.spectacle
 
 import com.google.gson.annotations.SerializedName
+import tech.ada.leosan.spectacle.model.Track
 
 data class DeezerDTO(
     @SerializedName("data")

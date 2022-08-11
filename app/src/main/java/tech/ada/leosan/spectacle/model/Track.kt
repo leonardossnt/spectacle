@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.model
 
 import com.google.gson.annotations.SerializedName
 

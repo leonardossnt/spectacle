@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,6 +12,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import tech.ada.leosan.spectacle.*
+import tech.ada.leosan.spectacle.navigation.Routes
+import tech.ada.leosan.spectacle.utils.CustomColors
 
 class MainActivity : ComponentActivity() {
     val TAG: String = "MainActivity"

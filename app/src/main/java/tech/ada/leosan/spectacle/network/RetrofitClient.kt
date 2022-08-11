@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.network
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

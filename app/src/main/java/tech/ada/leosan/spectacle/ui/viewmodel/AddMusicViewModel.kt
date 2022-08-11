@@ -6,13 +6,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-sealed class SearchMusicDataState {
-    class Success(val data: MutableList<Track>) : SearchMusicDataState()
-    class Failure(val message: String) : SearchMusicDataState()
-    object Loading : SearchMusicDataState()
-    object Empty : SearchMusicDataState()
-}
+import tech.ada.leosan.spectacle.network.RetrofitClient
+import tech.ada.leosan.spectacle.ui.states.SearchMusicDataState
 
 class AddMusicViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<SearchMusicDataState>(SearchMusicDataState.Empty)

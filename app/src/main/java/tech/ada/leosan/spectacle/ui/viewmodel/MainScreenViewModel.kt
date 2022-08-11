@@ -7,13 +7,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-
-sealed class MainScreenState {
-    object Loading : MainScreenState()
-    object SignUp : MainScreenState()
-    object SignInRequired : MainScreenState()
-    object LoggedIn : MainScreenState()
-}
+import tech.ada.leosan.spectacle.ui.states.MainScreenState
 
 class MainScreenViewModel : ViewModel() {
     private val mutableState = MutableStateFlow<MainScreenState>(MainScreenState.Loading)

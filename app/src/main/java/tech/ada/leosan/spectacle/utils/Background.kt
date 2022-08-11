@@ -1,4 +1,4 @@
-package tech.ada.leosan.spectacle
+package tech.ada.leosan.spectacle.utils
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
