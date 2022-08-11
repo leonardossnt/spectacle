@@ -112,10 +112,8 @@ fun signUp(
 
     auth.createUserWithEmailAndPassword(email, password)
         .addOnSuccessListener { authResult ->
-            println("User created successfully: ${authResult.user} ${authResult.additionalUserInfo} ${authResult.credential}")
             onSignUpSuccess()
         }.addOnFailureListener { exception ->
-            println("Sign up failed: ${exception.message}")
             onSignUpFailed()
             // case 1: bad formatted email -- The email address is badly formatted.
             // case 2: username already taken - The email address is already in use by another account

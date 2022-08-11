@@ -205,10 +205,8 @@ private fun signIn(
 
     auth.signInWithEmailAndPassword(email, password)
         .addOnSuccessListener { authResult ->
-            println("User authenticated: ${authResult.user} ${authResult.additionalUserInfo} ${authResult.credential}")
             onSignedIn()
         }.addOnFailureListener { exception ->
-            println("Auth failed: ${exception.message}")
             onSignInFailed()
             // case 1: bad formatted email -- The email address is badly formatted.
             // zza ERROR_INVALID_EMAIL
