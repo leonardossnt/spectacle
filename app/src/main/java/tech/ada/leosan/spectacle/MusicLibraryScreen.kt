@@ -52,7 +52,7 @@ fun MusicLibraryScreen(
 
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopCenter
         ) {
             when (state) {
                 MusicLibraryDataState.Empty -> {

@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @Preview
 @Composable
@@ -55,7 +58,12 @@ fun AddMusicScreen(navController: NavHostController) {
                 SearchMusicDataState.Loading -> {
                     CircularProgressIndicator(color = Color.White)
                 }
-                is SearchMusicDataState.Success -> TrackListAdd((state as SearchMusicDataState.Success).data)
+                is SearchMusicDataState.Success -> {
+                    TrackListAdd(
+                        tracks = (state as SearchMusicDataState.Success).data,
+                        navController = navController
+                    )
+                }
                 is SearchMusicDataState.Failure -> {
                     Text("Error! ${(state as SearchMusicDataState.Failure).message}")
                 }
@@ -66,7 +74,7 @@ fun AddMusicScreen(navController: NavHostController) {
 
 @Composable
 fun AddMusicSearchBar(
-    viewModel : AddMusicViewModel
+    viewModel: AddMusicViewModel
 ) {
     var searchContent by remember { mutableStateOf("") }
 
@@ -116,13 +124,23 @@ fun AddMusicSearchBar(
 
 @Composable
 fun TrackListAdd(
-    tracks: MutableList<Track>
+    tracks: MutableList<Track>,
+    navController: NavHostController
 ) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = 24.dp)
     ) {
         items(items = tracks) { track ->
-            TrackComponent(track, true)
+            TrackComponent(track,
+                addElement = true,
+                addElementAction = {
+                    val uid = Firebase.auth.uid
+                    val ref = Firebase.database.getReference("$uid/musiclist/")
+                    ref.push().setValue(track)
+
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }
