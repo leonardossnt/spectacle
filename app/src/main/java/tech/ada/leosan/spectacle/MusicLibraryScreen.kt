@@ -2,6 +2,8 @@ package tech.ada.leosan.spectacle
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,8 +21,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @Preview
 @Composable
@@ -32,6 +37,9 @@ fun MusicLibraryScreenPreview() {
 fun MusicLibraryScreen(
     navController: NavHostController
 ) {
+    val viewModel = viewModel<MusicLibraryViewModel>()
+    val state by viewModel.state.collectAsState()
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -42,6 +50,30 @@ fun MusicLibraryScreen(
         MusicLibraryMosaic()
         MusicLibraryTitle()
         AddMusicButton()
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            when (state) {
+                MusicLibraryDataState.Empty -> {
+                    Text(
+                        stringResource(R.string.song_list_empty),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+                }
+                MusicLibraryDataState.Loading -> {
+                    CircularProgressIndicator(color = Color.White)
+                }
+                is MusicLibraryDataState.Success -> SongList((state as MusicLibraryDataState.Success).data)
+                is MusicLibraryDataState.Failure -> {
+                    Text("Error! ${(state as MusicLibraryDataState.Failure).message}")
+                }
+            }
+
+        }
+
     }
 }
 
@@ -138,8 +170,10 @@ fun MusicLibraryTitle() {
 @Composable
 fun AddMusicButton() {
     Button(
-        onClick = {  },
-        modifier = Modifier.wrapContentWidth().padding(16.dp),
+        onClick = {},
+        modifier = Modifier
+            .wrapContentWidth()
+            .padding(16.dp),
         shape = RoundedCornerShape(30.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background),
     ) {
@@ -156,7 +190,19 @@ fun AddMusicButton() {
             Text(
                 stringResource(R.string.add_new_song),
             )
+        }
+    }
+}
 
+@Composable
+fun SongList(
+    songs: MutableList<Song>
+) {
+    LazyColumn(
+        modifier = Modifier.padding(horizontal = 24.dp)
+    ) {
+        items(items = songs) { song ->
+            SongComponent(song)
         }
     }
 }

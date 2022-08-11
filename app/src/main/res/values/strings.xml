@@ -19,4 +19,5 @@
     <string name="back">Voltar</string>
     <string name="my_playlist">Minha Playlist</string>
     <string name="add_new_song">Adicionar nova música</string>
+    <string name="song_list_empty">Nenhuma música na lista.</string>
 </resources>
