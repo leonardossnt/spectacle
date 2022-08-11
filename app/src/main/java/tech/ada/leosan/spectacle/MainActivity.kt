@@ -107,7 +107,13 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Routes.MusicLibrary.route) {
-                            MusicLibraryScreen(navController)
+                            MusicLibraryScreen(navController,
+                                navigateToAddMusic = {
+                                navController.navigate(Routes.AddMusic.route)
+                            })
+                        }
+                        composable(Routes.AddMusic.route) {
+                            AddMusicScreen(navController)
                         }
                     }
                 }

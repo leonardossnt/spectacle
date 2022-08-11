@@ -24,18 +24,17 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 @Preview
 @Composable
 fun MusicLibraryScreenPreview() {
-    MusicLibraryScreen(rememberNavController())
+    MusicLibraryScreen(rememberNavController()) {}
 }
 
 @Composable
 fun MusicLibraryScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    navigateToAddMusic: () -> Unit,
 ) {
     val viewModel = viewModel<MusicLibraryViewModel>()
     val state by viewModel.state.collectAsState()
@@ -49,7 +48,7 @@ fun MusicLibraryScreen(
         MusicLibrarySearchBar {}
         MusicLibraryMosaic()
         MusicLibraryTitle()
-        AddMusicButton()
+        AddMusicButton(navigateToAddMusic)
 
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -169,9 +168,13 @@ fun MusicLibraryTitle() {
 }
 
 @Composable
-fun AddMusicButton() {
+fun AddMusicButton(
+    navigateToAddMusic: () -> Unit
+) {
     Button(
-        onClick = {},
+        onClick = {
+            navigateToAddMusic()
+        },
         modifier = Modifier
             .wrapContentWidth()
             .padding(16.dp),
