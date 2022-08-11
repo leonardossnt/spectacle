@@ -19,18 +19,17 @@ class AddMusicViewModel : ViewModel() {
     val state = mutableState.asStateFlow()
 
     init {
-        fetchDataFromApi()
+        getTopChartMusic()
     }
 
-    private fun fetchDataFromApi() {
+    fun getTopChartMusic() {
         mutableState.value = SearchMusicDataState.Loading
 
         val musicApi = RetrofitClient().getInstance().getMusicApi()
 
-        musicApi.listMusic().enqueue(object : Callback<DeezerDTO> {
+        musicApi.getTopChartMusic().enqueue(object : Callback<DeezerDTO> {
             override fun onResponse(call: Call<DeezerDTO>, response: Response<DeezerDTO>) {
                 if (response.isSuccessful) {
-                    println("LSS> fetch is successfull")
                     val list = response.body()?.data?.map { mapDtoToTrack(it) }
                     val tracks = list?.toMutableList()
                     if (!tracks.isNullOrEmpty()) {
@@ -45,6 +44,29 @@ class AddMusicViewModel : ViewModel() {
                 println(t.stackTraceToString())
             }
         })
+    }
 
+    fun search(search: String) {
+        mutableState.value = SearchMusicDataState.Loading
+
+        val musicApi = RetrofitClient().getInstance().getMusicApi()
+
+        musicApi.searchMusic(search).enqueue(object : Callback<DeezerDTO> {
+            override fun onResponse(call: Call<DeezerDTO>, response: Response<DeezerDTO>) {
+                if (response.isSuccessful) {
+                    val list = response.body()?.data?.map { mapDtoToTrack(it) }
+                    val tracks = list?.toMutableList()
+                    if (!tracks.isNullOrEmpty()) {
+                        mutableState.value = SearchMusicDataState.Success(tracks)
+                    } else {
+                        mutableState.value = SearchMusicDataState.Empty
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<DeezerDTO>, t: Throwable) {
+                println(t.stackTraceToString())
+            }
+        })
     }
 }

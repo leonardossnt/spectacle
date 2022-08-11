@@ -36,7 +36,7 @@ fun AddMusicScreen(navController: NavHostController) {
             .fillMaxSize()
     ) {
         MusicLibraryTopBar(navController)
-        AddMusicSearchBar {}
+        AddMusicSearchBar(viewModel)
 
         Spacer(Modifier.height(16.dp))
 
@@ -66,7 +66,7 @@ fun AddMusicScreen(navController: NavHostController) {
 
 @Composable
 fun AddMusicSearchBar(
-    onValueChange: (String) -> Unit,
+    viewModel : AddMusicViewModel
 ) {
     var searchContent by remember { mutableStateOf("") }
 
@@ -76,7 +76,14 @@ fun AddMusicSearchBar(
     ) {
         TextField(
             value = searchContent,
-            onValueChange = { searchContent = it },
+            onValueChange = {
+                searchContent = it
+                if (searchContent.isNotEmpty()) {
+                    viewModel.search(it)
+                } else {
+                    viewModel.getTopChartMusic()
+                }
+            },
             placeholder = {
                 Text(
                     stringResource(R.string.search_placeholder),
