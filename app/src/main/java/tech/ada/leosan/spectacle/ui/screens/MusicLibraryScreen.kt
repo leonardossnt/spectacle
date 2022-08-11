@@ -47,7 +47,6 @@ fun MusicLibraryScreen(
             .fillMaxSize()
     ) {
         MusicLibraryTopBar(navController)
-        MusicLibrarySearchBar {}
         MusicLibraryMosaic()
         MusicLibraryTitle()
         AddMusicButton(navigateToAddMusic)
@@ -98,49 +97,6 @@ fun MusicLibraryTopBar(
                 tint = MaterialTheme.colors.onPrimary
             )
         }
-    }
-}
-
-@Composable
-fun MusicLibrarySearchBar(
-    onValueChange: (String) -> Unit,
-) {
-    var searchContent by remember { mutableStateOf("") }
-
-    Box(
-        modifier = Modifier
-            .padding(horizontal = 48.dp)
-    ) {
-        TextField(
-            value = searchContent,
-            onValueChange = { searchContent = it },
-            placeholder = {
-                Text(
-                    stringResource(R.string.search_placeholder),
-                )
-            },
-
-            // layout
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(50.dp),
-            singleLine = true,
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = null
-                )
-            },
-
-            //style
-            colors = TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                leadingIconColor = MaterialTheme.colors.onPrimary,
-                placeholderColor = MaterialTheme.colors.onPrimary.copy(alpha = 0.5f),
-                textColor = MaterialTheme.colors.onPrimary,
-                cursorColor = MaterialTheme.colors.onPrimary
-            ),
-        )
     }
 }
 
