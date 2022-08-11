@@ -45,6 +45,7 @@ dependencies {
 
     // Firebase Dependencies
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.7'
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
 
     // Jetpack Compose Dependencies
     implementation 'androidx.activity:activity-compose:1.5.1'
