@@ -108,7 +108,7 @@ fun MusicLibraryMosaic() {
             .size(240.dp)
             .background(Color.White.copy(alpha = 0.4f))
     ) {
-        Text("Mosaic here", modifier = Modifier.align(Alignment.Center))
+        Text("Mosaico aqui", modifier = Modifier.align(Alignment.Center))
     }
 }
 
