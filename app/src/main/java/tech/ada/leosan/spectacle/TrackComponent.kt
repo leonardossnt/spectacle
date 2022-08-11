@@ -18,15 +18,15 @@ import androidx.compose.ui.unit.sp
 
 @Preview
 @Composable
-fun SongComponentPreview() {
-    SongComponent(
-        Song("Caneta e Papel", "Os Arrais", "loooool.png")
+fun TrackComponentPreview() {
+    TrackComponent(
+        Track("Caneta e Papel", "Os Arrais", "loooool.png")
     )
 }
 
 @Composable
-fun SongComponent(
-    song: Song
+fun TrackComponent(
+    track: Track
 ) {
     Box(
         Modifier
@@ -45,14 +45,14 @@ fun SongComponent(
             Spacer(Modifier.width(16.dp))
             Column() {
                 Text(
-                    song.title,
+                    track.title,
                     style = TextStyle(
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Medium,
                     ),
                 )
                 Text(
-                    song.artist,
+                    track.artist,
                     style = TextStyle(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Light,

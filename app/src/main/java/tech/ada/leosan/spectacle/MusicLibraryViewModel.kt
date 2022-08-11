@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 sealed class MusicLibraryDataState {
-    class Success(val data: MutableList<Song>) : MusicLibraryDataState()
+    class Success(val data: MutableList<Track>) : MusicLibraryDataState()
     class Failure(val message: String) : MusicLibraryDataState()
     object Loading : MusicLibraryDataState()
     object Empty : MusicLibraryDataState()
@@ -37,11 +37,11 @@ class MusicLibraryViewModel : ViewModel() {
                     if (snapshot.childrenCount <= 0) {
                         mutableState.value = MusicLibraryDataState.Empty
                     } else {
-                        val list = mutableListOf<Song>()
+                        val list = mutableListOf<Track>()
                         for (data in snapshot.children) {
-                            val song = data.getValue(Song::class.java)
-                            if (song != null) {
-                                list.add(song)
+                            val track = data.getValue(Track::class.java)
+                            if (track != null) {
+                                list.add(track)
                             }
                         }
                         mutableState.value = MusicLibraryDataState.Success(list)

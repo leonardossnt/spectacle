@@ -10,8 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
@@ -23,6 +25,8 @@ fun AddMusicScreenPreview() {
 
 @Composable
 fun AddMusicScreen(navController: NavHostController) {
+    val viewModel = viewModel<AddMusicViewModel>()
+    val state by viewModel.state.collectAsState()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,7 +36,29 @@ fun AddMusicScreen(navController: NavHostController) {
         MusicLibraryTopBar(navController)
         AddMusicSearchBar {}
 
-        SongList(mutableListOf())
+        Spacer(Modifier.height(16.dp))
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            when (state) {
+                SearchMusicDataState.Empty -> {
+                    Text(
+                        stringResource(R.string.song_list_empty),
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+                }
+                SearchMusicDataState.Loading -> {
+                    CircularProgressIndicator(color = Color.White)
+                }
+                is SearchMusicDataState.Success -> TrackList((state as SearchMusicDataState.Success).data)
+                is SearchMusicDataState.Failure -> {
+                    Text("Error! ${(state as SearchMusicDataState.Failure).message}")
+                }
+            }
+        }
     }
 }
 

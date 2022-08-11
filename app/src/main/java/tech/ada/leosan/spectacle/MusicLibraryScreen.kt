@@ -65,7 +65,7 @@ fun MusicLibraryScreen(
                 MusicLibraryDataState.Loading -> {
                     CircularProgressIndicator(color = Color.White)
                 }
-                is MusicLibraryDataState.Success -> SongList((state as MusicLibraryDataState.Success).data)
+                is MusicLibraryDataState.Success -> TrackList((state as MusicLibraryDataState.Success).data)
                 is MusicLibraryDataState.Failure -> {
                     Text("Error! ${(state as MusicLibraryDataState.Failure).message}")
                 }
@@ -199,14 +199,14 @@ fun AddMusicButton(
 }
 
 @Composable
-fun SongList(
-    songs: MutableList<Song>
+fun TrackList(
+    tracks: MutableList<Track>
 ) {
     LazyColumn(
         modifier = Modifier.padding(horizontal = 24.dp)
     ) {
-        items(items = songs) { song ->
-            SongComponent(song)
+        items(items = tracks) { track ->
+            TrackComponent(track)
         }
     }
 }
