@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 
 @Preview
 @Composable
@@ -38,14 +39,10 @@ fun TrackComponent(
             .fillMaxWidth()
             .padding(vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                imageVector = Icons.Default.MusicNote,
+            AsyncImage(
+                model = track.thumbnailUrl,
                 contentDescription = null,
-                Modifier
-                    .background(
-                        Color.White
-                    )
-                    .size(72.dp)
+                Modifier.size(72.dp)
             )
             Spacer(Modifier.width(16.dp))
             Column(
